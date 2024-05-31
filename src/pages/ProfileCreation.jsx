@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, VStack, Heading, Input, Button, FormControl, FormLabel, Select, Textarea, Image } from '@chakra-ui/react';
 
 const ProfileCreation = () => {
@@ -7,6 +8,8 @@ const ProfileCreation = () => {
   const [gender, setGender] = useState('');
   const [interests, setInterests] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleProfilePictureChange = (e) => {
     const file = e.target.files[0];
@@ -22,7 +25,9 @@ const ProfileCreation = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log({ name, age, gender, interests, profilePicture });
+    const profileData = { name, age, gender, interests, profilePicture };
+    localStorage.setItem('profileData', JSON.stringify(profileData));
+    navigate('/match-recommendations');
   };
 
   return (
